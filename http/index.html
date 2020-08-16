@@ -8,28 +8,28 @@
     <div>
         <h1>Get HTTP Headers</h1>
         <form action="get_headers.php" method='POST'>
-            <input type="text" name='url'>
+            <input type="text" name='url' placeholder='https://target.org'>
             <input type="submit">
         </form>
 
         <h1>Get Server version</h1>
         <p>Use <code>get_headers($url, 1)['Server']</code> to print the server version.</p>
         <form action="get_server_version.php" method='POST'>
-            <input type="text" name='url'>
+            <input type="text" name='url' placeholder='https://target.org'>
             <input type="submit">
         </form>
 
         <h1>Get Server version (alternative)</h1>
         <p>Use a custom parser to print the server version from the automatically generated <code>$http_response_header</code> array.</p>
         <form action="get_server_version_alt.php" method='POST'>
-            <input type="text" name='url'>
+            <input type="text" name='url' placeholder='https://target.org'>
             <input type="submit">
         </form>
 
         <h1>Nmap portscan</h1>
         <p>Runs <code>nmap -sV --top-ports 16 TARGET</code> on the chosen target</p>
         <form action="nmap_portscan.php" method='POST'>
-            <input type="text" name='target'>
+            <input type="text" name='target' placeholder='target.org OR 1.1.1.1'>
             <input type="submit">
         </form>
     </div>
