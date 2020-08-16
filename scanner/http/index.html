@@ -26,6 +26,13 @@
             <input type="submit">
         </form>
 
+        <h1>Get Server status</h1>
+        <p>Print Status Code and Status Message from target response (Status Code can only be numeric).</p>
+        <form action="get_status.php" method='POST'>
+            <input type="text" name='url' placeholder='https://target.org'>
+            <input type="submit">
+        </form>
+
         <h1>Nmap portscan</h1>
         <p>Runs <code>nmap -sV --top-ports 16 TARGET</code> on the chosen target</p>
         <form action="nmap_portscan.php" method='POST'>
