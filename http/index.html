@@ -25,6 +25,13 @@
             <input type="text" name='url'>
             <input type="submit">
         </form>
+
+        <h1>Nmap portscan</h1>
+        <p>Runs <code>nmap -sV --top-ports 16 TARGET</code> on the chosen target</p>
+        <form action="nmap_portscan.php" method='POST'>
+            <input type="text" name='target'>
+            <input type="submit">
+        </form>
     </div>
 </body>
 </html>
