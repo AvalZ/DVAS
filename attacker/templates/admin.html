@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attacker admin</title>
+    <style>
+        body { font-family: sans-serif; }
+        .txt { width:620px }
+        .fs  { width:640px }
+        .savebutton { font-family: sans-serif; font-weight: bold; }
+
+        hr { margin-left: 10px; size: 1px }
+    </style>
+</head>
+<body>
+    <h2>Attacker-o-Matic</h2>
+    <form id="attacker-form" method="POST">
+        <fieldset class="fs">
+            <legend>Response</legend>
+            <label for="code">Code:</label>
+            <input type="text" id="code" value="{{ attacker.code }}" name="code"><br><br>
+            <label for="msg">Message:</label>
+            <input type="text" id="msg" value="{{ attacker.message }}" name="msg"><br><br>
+        </fieldset>
+        <fieldset class="fs">
+            <legend>Headers</legend>
+            <textarea class="txt" id=header name=header rows=10>{{ attacker.header }}</textarea>
+        </fieldset>
+        <!--<fieldset>
+            <legend>Cookies</legend>
+        </fieldset> -->
+        <fieldset class="fs">
+            <legend>Body</legend>
+            <textarea class="txt" id=body name=body rows=10>{{ attacker.body }}</textarea>
+        </fieldset>
+        <fieldset class="fs">
+            <legend>Robots</legend>
+            <textarea class="txt" id=robots name=robots rows=10>{{ attacker.robots }}</textarea>
+        </fieldset>
+        <hr class="fs">
+        <button class="savebutton" type=submit>Save</button>
+    </form>
+</body>
+</html>
