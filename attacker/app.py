@@ -62,7 +62,7 @@ def robots():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    body = "configure attacker using <a href='/admin'>admin</a> page"
+    body = "configure the attacker using <a href='/admin'>admin</a> page"
     code = "200"
     message = "I gave too many answers"
 

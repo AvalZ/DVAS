@@ -1,0 +1,11 @@
+version: "3"
+services:
+  dvas:
+    build: ./scanner
+    ports:
+      - "8080:80"
+
+  nax:
+    build: ./attacker
+    ports:
+      - "8081:5000"
