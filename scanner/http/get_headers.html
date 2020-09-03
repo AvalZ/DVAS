@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+<body>
+    <div class='container'>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#headers" role="tab" aria-controls="headers" aria-selected="true">Get HTTP Headers</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#server" role="tab" aria-controls="server" aria-selected="false">Get Server version</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#server-alt" role="tab" aria-controls="server-alt" aria-selected="false">Get Server version (alternative)</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#status" role="tab" aria-controls="status" aria-selected="false">Get Server status</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#redirect" role="tab" aria-controls="redirect" aria-selected="false">Get Redirect</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="headers" role="tabpanel" aria-labelledby="home-tab">
+                <h1>Get HTTP Headers</h1>
+                <form action="get_headers.php" method='POST' class='form-inline'>
+                    <input type="text" name='url' placeholder='https://target.org' class='form-control mb-2 mr-sm-2'>
+                    <input type="submit" value='Scan' class="btn btn-primary mb-2">
+                </form>
+            </div>
+            <div class="tab-pane fade" id="server" role="tabpanel" aria-labelledby="profile-tab">
+                <h1>Get Server version</h1>
+                <p>Use <code>get_headers($url, 1)['Server']</code> to print the server version.</p>
+                <form action="get_server_version.php" method='POST' class='form-inline'>
+                    <input type="text" name='url' placeholder='https://target.org' class='form-control mb-2 mr-sm-2'>
+                    <input type="submit" value='Scan' class="btn btn-primary mb-2">
+                </form>
+            </div>
+            <div class="tab-pane fade" id="server-alt" role="tabpanel" aria-labelledby="contact-tab">
+                <h1>Get Server version (alternative)</h1>
+                <p>Use a custom parser to print the server version from the automatically generated <code>$http_response_header</code> array.</p>
+                <form action="get_server_version_alt.php" method='POST' class='form-inline'>
+                    <input type="text" name='url' placeholder='https://target.org' class='form-control mb-2 mr-sm-2'>
+                    <input type="submit" value='Scan' class='btn btn-primary mb-2'>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="status" role="tabpanel" aria-labelledby="contact-tab">
+                <h1>Get Server status</h1>
+                <p>Print Status Code and Status Message from target response (Status Code can only be numeric).</p>
+                <form action="get_status.php" method='POST' class='form-inline'>
+                    <input type="text" name='url' placeholder='https://target.org' class="form-control mb-2 mr-sm-2">
+                    <input type="submit" value='Scan' class="btn btn-primary mb-2">
+                </form>
+            </div>
+            <div class="tab-pane fade" id="redirect" role="tabpanel" aria-labelledby="contact-tab">
+                <h1>Get Redirect</h1>
+                <p>Use <code>get_headers($url, 1)['Location']</code> to print the redirect chain.</p>
+                <form action="get_redirect.php" method='POST' class='form-inline'>
+                    <input type="text" name='url' placeholder='https://target.org' class="form-control mb-2 mr-sm-2">
+                    <input type="submit" value='Scan' class="btn btn-primary mb-2">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
