@@ -3,17 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <title>Attacker admin</title>
-    <style>
-        body { font-family: sans-serif; }
-        .txt { width:620px }
-        .fs  { width:640px }
-        .savebutton { font-family: sans-serif; font-weight: bold; }
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/theme-charcoal.css">
 
-        hr { margin-left: 10px; size: 1px }
-    </style>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <h2>Attacker-o-Matic</h2>
+<script>
+    $(document).ready(function () {
+        $('#form').submit(function(e){
+                  e.preventDefault();
+                  $.ajax({
+                    url: '/update',
+                    data: $(this).serialize(),
+                    method: 'POST',
+                    success: function(data) {
+                      console.log('ok')
+                      $('#success').show();
+                      $('html, body').animate({ scrollTop: $('#success').offset().top }, 'slow', function() {
+                         $('#success').hide('slow'); // Hide element after scroll is completed
+                      });
+                    },
+                    error: function(data) {
+                      console.log('error !')
+                      $('#error').show();
+                      $('html, body').animate({ scrollTop: $('#error').offset().top }, 'slow');
+                    }
+                  });
+                });
+
+        $('#form1').submit(function(e){
+                  e.preventDefault();
+                  $.ajax({
+                    url: '/update',
+                    data: $(this).serialize(),
+                    method: 'POST',
+                    success: function(data) {
+                      console.log('ok')
+                      $('#success').show();
+                      $('html, body').animate({ scrollTop: $('#success').offset().top }, 'slow', function() {
+                         $('#success').hide('slow'); // Hide element after scroll is completed
+                      });
+                    },
+                    error: function(data) {
+                      console.log('error !')
+                      $('#error').show();
+                      $('html, body').animate({ scrollTop: $('#error').offset().top }, 'slow');
+                    }
+                  });
+                });
+        })
+
+</script>
+<div id="root">
+        <div class="main-container">
+            <section class="text-center">
+                <div class="container"><h2>Design your attacker</h2></div>
+            </section>
+            <section class="space--xxs bg--secondary">
+                <div class="container">
+                    <div class="alert alert-success" role="alert" id="success" style="display: none">
+                        Attacker saved!
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="error" style="display: none">
+                        An error occurred.
+                    </div>
+                    <div class="row justify-content-center no-gutters">
+                        <div class="col-md-10 col-lg-8">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="response-tab" data-toggle="tab" href="#response" role="tab"
+                                       aria-controls="response" aria-selected="true">HTTP Response</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="robots-tab" data-toggle="tab" href="#robots" role="tab"
+                                       aria-controls="robots" aria-selected="false">robots.txt</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active boxed boxed--border--tab" role="tabpanel" id="response">
+                                    <form action="#" id="form" method="POST" class="text-left mx-0">
+                                        <div class="row">
+                                        </div>
+                                            <div class="col-md-14"><span class="color--dark">Path</span>
+                                                <input placeholder="catch-all" name="code" id="code" value="{{ attacker.path }}" readonly=true type="text" class="form-control">
+                                                <small class="form-text color--primary">Path to configure.</small>
+                                            </div>
+                                        <div class="row">
+                                            <div class="col-md-6"><span class="color--dark">Code</span>
+                                                <input placeholder="200" name="code" id="code" value="{{ attacker.code }}" type="text" class="form-control">
+                                                <small class="form-text color--primary">The HTTP Code of the HTTP response you'll receive.</small>
+                                            </div>
+                                            <div class="col-md-6"><span class="color--dark">Message</span>
+                                                <input placeholder="OK" name="msg" type="string" class="form-control" value="{{ attacker.message }}">
+                                                <small class="form-text color--primary">The HTTP Message of the HTTP response you'll receive.<br>&nbsp;</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12"><span class="color--dark">HTTP Headers</span>
+                                                <textarea placeholder="Server: Custom Server v1.0
+X-Foo-Bar: Hello World" name="header" id="header" type="text" style="height: 201.6px;">{{ attacker.header }}</textarea>
+                                                <small class="form-text color--primary">Customize the HTTP headers sent in the
+                                                    response. </small>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <span class="color--dark">HTTP Response Body
+                                                </span>&nbsp;<!-- <span
+                                                    class="badge badge-dark type--fade float-right">OPTIONAL</span>--><textarea
+                                                    class="textarea--code" name="body" id="body" type="text"
+                                                    style="height: 201.6px;">{{ attacker.body }}</textarea>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="submit" id="submit" class="btn btn--primary type--uppercase">Generate my HTTP
+                                                    Response
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="robots" value="{{ attacker.robots }}">
+                                        <input type="hidden" name="path" value="{{ attacker.path }}">
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade boxed boxed--border--tab" role="tabpanel" id="robots">
+                                    <form action="#" id="form1" method="POST" class="text-left mx-0">
+                                        <input type="hidden" name="code" value="{{ attacker.code }}">
+                                        <input type="hidden" name="msg" value="{{ attacker.message }}">
+                                        <input type="hidden" name="header" value="{{ attacker.header }}">
+                                        <input type="hidden" name="body" value="{{ attacker.body }}">
+                                        <input type="hidden" name="path" value="{{ attacker.path }}">
+                                        <div class="row">
+                                            <div class="col-md-12"><span class="color--dark">Robots</span>&nbsp;<!-- <span
+                                                    class="badge badge-dark type--fade float-right">OPTIONAL</span>--><textarea
+                                                    placeholder="User-agent: Googlebot
+Disallow: /nogooglebot/" name="robots" id="robots" type="text" style="height: 201.6px;">{{ attacker.robots }}</textarea>
+                                                <small class="form-text color--primary">Customize the robots.txt file</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="submit" id="submit1" class="btn btn--primary type--uppercase">Generate my robots.txt
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+<!--    <h2>Attacker-o-Matic</h2>
     <form id="attacker-form" method="POST">
         <fieldset class="fs">
             <legend>Response</legend>
@@ -26,9 +172,9 @@
             <legend>Headers</legend>
             <textarea class="txt" id=header name=header rows=10>{{ attacker.header }}</textarea>
         </fieldset>
-        <!--<fieldset>
+        <fieldset>
             <legend>Cookies</legend>
-        </fieldset> -->
+        </fieldset>
         <fieldset class="fs">
             <legend>Body</legend>
             <textarea class="txt" id=body name=body rows=10>{{ attacker.body }}</textarea>
@@ -39,6 +185,6 @@
         </fieldset>
         <hr class="fs">
         <button class="savebutton" type=submit>Save</button>
-    </form>
+    </form> -->
 </body>
 </html>
