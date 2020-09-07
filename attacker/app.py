@@ -1,15 +1,13 @@
 from flask import Flask, render_template, request
 import json, base64
 
+HTTP_METHODS = ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH']
+
 class attackerFlask(Flask):
     def process_response(self, response):
-        try:
-            with open("attacker.json", "r") as f:
-                attacker = json.loads(f.read())
-        except:
-            attacker = {}
+        attacker = loadAttacker(request.path[1:])
 
-        if request.path != '/admin':
+        if request.path[0:6] != '/admin':
             if 'header' in attacker:
                 if attacker['header']:
                     for header in  attacker['header'].split('\n'):
@@ -25,31 +23,7 @@ app = attackerFlask(__name__,
                     template_folder='templates')
 
 
-@app.route("/update", methods=['POST'])
-def update():
-    code = request.values.get('code')
-    msg = request.values.get('msg')
-    header = request.values.get('header')
-    body = request.values.get('body')
-    robots = request.values.get('robots')
-    path = request.values.get('path')
-
-    attacker = {'header': header, 'body': body, 'robots': robots, 'code': code, 'message': msg, 'path': path}
-
-    if path[1:]:
-        fname = base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
-    else:
-        fname = "attacker.json"
-
-    with open(fname, "w") as f:
-        f.write(json.dumps(attacker))
-    f.close()
-
-    return "{}"
-
-@app.route('/admin', defaults={'path': ''})
-@app.route('/admin/<path:path>', methods=['GET', 'POST'])
-def admin(path):
+def loadAttacker(path):
     if path:
         fname = base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
     else:
@@ -65,26 +39,41 @@ def admin(path):
         except:
             attacker = { 'path': path }
 
+    return attacker
+
+@app.route("/update", methods=['POST'])
+def update():
+    code = request.values.get('code')
+    msg = request.values.get('msg')
+    header = request.values.get('header')
+    body = request.values.get('body')
+    path = request.values.get('path')
+
+    attacker = {'header': header, 'body': body, 'code': code, 'message': msg, 'path': path}
+
+    print(attacker)
+
+    if path[1:]:
+        fname = base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
+    else:
+        fname = "attacker.json"
+
+    with open(fname, "w") as f:
+        f.write(json.dumps(attacker))
+    f.close()
+
+    return "{}"
+
+@app.route('/admin', defaults={'path': ''})
+@app.route('/admin/', defaults={'path': ''})
+@app.route('/admin/<path:path>', methods=['GET', 'POST'])
+def admin(path):
+    attacker = loadAttacker(path)
+
     return render_template('admin.html', attacker=attacker)
 
-@app.route('/robots.txt')
-def robots():
-    try:
-        with open("attacker.json", "r") as f:
-            attacker = json.loads(f.read())
-    except:
-        attacker = {}
-
-    robots = "Disallow: all"
-    if 'robots' in attacker:
-        robots = attacker['robots']
-
-    t = render_template('robots.txt', robots=robots)
-
-    return t, 200, {'Content-Type': 'text/plain'}
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route('/', defaults={'path': ''}, methods=HTTP_METHODS)
+@app.route('/<path:path>', methods=HTTP_METHODS)
 def catch_all(path):
     body = "configure the catch-all attacker using the <a href='/admin'>admin</a> URL or a single-path attacker specifing a <i>path</i> after the admin URL (e.g., the <a href='/admin/example.html'>example.html</a> page attacker)"
     code = "200"

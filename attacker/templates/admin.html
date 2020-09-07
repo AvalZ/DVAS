@@ -20,37 +20,12 @@
                     method: 'POST',
                     success: function(data) {
                       console.log('ok')
-                      $('#success').show();
-                      $('html, body').animate({ scrollTop: $('#success').offset().top }, 'slow', function() {
-                         $('#success').hide('slow'); // Hide element after scroll is completed
-                      });
-                    },
+                      $("#successModal").modal();
+                      },
                     error: function(data) {
                       console.log('error !')
-                      $('#error').show();
-                      $('html, body').animate({ scrollTop: $('#error').offset().top }, 'slow');
-                    }
-                  });
-                });
-
-        $('#form1').submit(function(e){
-                  e.preventDefault();
-                  $.ajax({
-                    url: '/update',
-                    data: $(this).serialize(),
-                    method: 'POST',
-                    success: function(data) {
-                      console.log('ok')
-                      $('#success').show();
-                      $('html, body').animate({ scrollTop: $('#success').offset().top }, 'slow', function() {
-                         $('#success').hide('slow'); // Hide element after scroll is completed
-                      });
-                    },
-                    error: function(data) {
-                      console.log('error !')
-                      $('#error').show();
-                      $('html, body').animate({ scrollTop: $('#error').offset().top }, 'slow');
-                    }
+                      $("#errorModal").modal();
+                      },
                   });
                 });
         })
@@ -58,36 +33,18 @@
 </script>
 <div id="root">
         <div class="main-container">
-            <section class="text-center">
-                <div class="container"><h2>Design your attacker</h2></div>
-            </section>
+            <div class="container text-center"><h2>Design your attacker</h2></div>
+
             <section class="space--xxs bg--secondary">
                 <div class="container">
-                    <div class="alert alert-success" role="alert" id="success" style="display: none">
-                        Attacker saved!
-                    </div>
-                    <div class="alert alert-danger" role="alert" id="error" style="display: none">
-                        An error occurred.
-                    </div>
                     <div class="row justify-content-center no-gutters">
-                        <div class="col-md-10 col-lg-8">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="response-tab" data-toggle="tab" href="#response" role="tab"
-                                       aria-controls="response" aria-selected="true">HTTP Response</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="robots-tab" data-toggle="tab" href="#robots" role="tab"
-                                       aria-controls="robots" aria-selected="false">robots.txt</a>
-                                </li>
-                            </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active boxed boxed--border--tab" role="tabpanel" id="response">
+                                <div class="tab-pane fade show active boxed boxed--border" role="tabpanel" id="response">
                                     <form action="#" id="form" method="POST" class="text-left mx-0">
                                         <div class="row">
                                         </div>
                                             <div class="col-md-14"><span class="color--dark">Path</span>
-                                                <input placeholder="catch-all" name="code" id="code" value="/{{ attacker.path }}" readonly=true type="text" class="form-control">
+                                                <input placeholder="catch-all" name="path" id="path" value="{{ attacker.path }}" readonly=true type="text" class="form-control">
                                                 <small class="form-text color--primary">Path to configure.</small>
                                             </div>
                                         <div class="row">
@@ -111,8 +68,7 @@ X-Foo-Bar: Hello World" name="header" id="header" type="text" style="height: 201
                                         <div class="row mt-3">
                                             <div class="col-md-12">
                                                 <span class="color--dark">HTTP Response Body
-                                                </span>&nbsp;<!-- <span
-                                                    class="badge badge-dark type--fade float-right">OPTIONAL</span>--><textarea
+                                                </span><textarea
                                                     class="textarea--code" name="body" id="body" type="text"
                                                     style="height: 201.6px;">{{ attacker.body }}</textarea>
                                             </div>
@@ -125,11 +81,10 @@ X-Foo-Bar: Hello World" name="header" id="header" type="text" style="height: 201
                                                 </button>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="robots" value="{{ attacker.robots }}">
                                         <input type="hidden" name="path" value="{{ attacker.path }}">
                                     </form>
                                 </div>
-                                <div class="tab-pane fade boxed boxed--border--tab" role="tabpanel" id="robots">
+                                <!-- <div class="tab-pane fade boxed boxed--border--tab" role="tabpanel" id="robots">
                                     <form action="#" id="form1" method="POST" class="text-left mx-0">
                                         <input type="hidden" name="code" value="{{ attacker.code }}">
                                         <input type="hidden" name="msg" value="{{ attacker.message }}">
@@ -137,8 +92,7 @@ X-Foo-Bar: Hello World" name="header" id="header" type="text" style="height: 201
                                         <input type="hidden" name="body" value="{{ attacker.body }}">
                                         <input type="hidden" name="path" value="{{ attacker.path }}">
                                         <div class="row">
-                                            <div class="col-md-12"><span class="color--dark">Robots</span>&nbsp;<!-- <span
-                                                    class="badge badge-dark type--fade float-right">OPTIONAL</span>--><textarea
+                                            <div class="col-md-12"><span class="color--dark">Robots</span><textarea
                                                     placeholder="User-agent: Googlebot
 Disallow: /nogooglebot/" name="robots" id="robots" type="text" style="height: 201.6px;">{{ attacker.robots }}</textarea>
                                                 <small class="form-text color--primary">Customize the robots.txt file</small>
@@ -151,7 +105,7 @@ Disallow: /nogooglebot/" name="robots" id="robots" type="text" style="height: 20
                                             </div>
                                         </div>
                                     </form>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -159,32 +113,46 @@ Disallow: /nogooglebot/" name="robots" id="robots" type="text" style="height: 20
             </section>
         </div>
     </div>
-<!--    <h2>Attacker-o-Matic</h2>
-    <form id="attacker-form" method="POST">
-        <fieldset class="fs">
-            <legend>Response</legend>
-            <label for="code">Code:</label>
-            <input type="text" id="code" value="{{ attacker.code }}" name="code"><br><br>
-            <label for="msg">Message:</label>
-            <input type="text" id="msg" value="{{ attacker.message }}" name="msg"><br><br>
-        </fieldset>
-        <fieldset class="fs">
-            <legend>Headers</legend>
-            <textarea class="txt" id=header name=header rows=10>{{ attacker.header }}</textarea>
-        </fieldset>
-        <fieldset>
-            <legend>Cookies</legend>
-        </fieldset>
-        <fieldset class="fs">
-            <legend>Body</legend>
-            <textarea class="txt" id=body name=body rows=10>{{ attacker.body }}</textarea>
-        </fieldset>
-        <fieldset class="fs">
-            <legend>Robots</legend>
-            <textarea class="txt" id=robots name=robots rows=10>{{ attacker.robots }}</textarea>
-        </fieldset>
-        <hr class="fs">
-        <button class="savebutton" type=submit>Save</button>
-    </form> -->
+
+
+ <!-- Modals -->
+  <div class="modal fade" id="successModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Success</h4>
+        </div>
+        <div class="modal-body">
+            <p><b>Attacker saved.</b></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal"> Close </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="errorModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Error</h4>
+        </div>
+        <div class="modal-body alert alert-danger">
+            <p><b>An error occured.</b></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>
