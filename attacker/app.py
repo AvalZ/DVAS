@@ -25,23 +25,24 @@ app = attackerFlask(__name__,
 
 def loadAttacker(path):
     if path:
-        fname = base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
+        fname = "json/" + base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
     else:
         fname = None
 
+    print(fname)
     try:
         with open(fname, "r") as f:
             attacker = json.loads(f.read())
     except:
         try:
-            with open("attacker.json", "r") as f:
+            with open("json/attacker.json", "r") as f:
                 attacker = json.loads(f.read())
         except:
             attacker = { 'path': path }
 
     return attacker
 
-@app.route("/update", methods=['POST'])
+@app.route("/admin/update", methods=['POST'])
 def update():
     code = request.values.get('code')
     msg = request.values.get('msg')
@@ -51,12 +52,10 @@ def update():
 
     attacker = {'header': header, 'body': body, 'code': code, 'message': msg, 'path': path}
 
-    print(attacker)
-
     if path[1:]:
-        fname = base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
+        fname = "json/" + base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
     else:
-        fname = "attacker.json"
+        fname = "json/attacker.json"
 
     with open(fname, "w") as f:
         f.write(json.dumps(attacker))
@@ -75,12 +74,15 @@ def admin(path):
 @app.route('/', defaults={'path': ''}, methods=HTTP_METHODS)
 @app.route('/<path:path>', methods=HTTP_METHODS)
 def catch_all(path):
-    body = "configure the catch-all attacker using the <a href='/admin'>admin</a> URL or a single-path attacker specifing a <i>path</i> after the admin URL (e.g., the <a href='/admin/example.html'>example.html</a> page attacker)"
+    body = "configure the default attacker using the <a href='/admin'>admin</a> URL or a single-path attacker specifing a <i>path</i> after the admin URL (e.g., the <a href='/admin/example.html'>example.html</a> page attacker)"
     code = "200"
     message = "OK"
 
+    attacker = loadAttacker(request.path[1:])
+
+    '''
     if path:
-        fname = base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
+        fname = "json/" + base64.b64encode(path.encode('ascii')).decode('ascii') + ".json"
     else:
         fname = None
 
@@ -93,6 +95,7 @@ def catch_all(path):
                 attacker = json.loads(f.read())
         except:
             attacker = {}
+    '''
 
     if 'body' in attacker:
         body = attacker['body']

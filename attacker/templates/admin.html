@@ -15,7 +15,7 @@
         $('#form').submit(function(e){
                   e.preventDefault();
                   $.ajax({
-                    url: '/update',
+                    url: '/admin/update',
                     data: $(this).serialize(),
                     method: 'POST',
                     success: function(data) {
@@ -44,7 +44,7 @@
                                         <div class="row">
                                         </div>
                                             <div class="col-md-14"><span class="color--dark">Path</span>
-                                                <input placeholder="catch-all" name="path" id="path" value="{{ attacker.path }}" readonly=true type="text" class="form-control">
+                                                <input placeholder="[default]" name="path" id="path" value="{{ attacker.path }}" readonly=true type="text" class="form-control">
                                                 <small class="form-text color--primary">Path to configure.</small>
                                             </div>
                                         <div class="row">
@@ -84,28 +84,6 @@ X-Foo-Bar: Hello World" name="header" id="header" type="text" style="height: 201
                                         <input type="hidden" name="path" value="{{ attacker.path }}">
                                     </form>
                                 </div>
-                                <!-- <div class="tab-pane fade boxed boxed--border--tab" role="tabpanel" id="robots">
-                                    <form action="#" id="form1" method="POST" class="text-left mx-0">
-                                        <input type="hidden" name="code" value="{{ attacker.code }}">
-                                        <input type="hidden" name="msg" value="{{ attacker.message }}">
-                                        <input type="hidden" name="header" value="{{ attacker.header }}">
-                                        <input type="hidden" name="body" value="{{ attacker.body }}">
-                                        <input type="hidden" name="path" value="{{ attacker.path }}">
-                                        <div class="row">
-                                            <div class="col-md-12"><span class="color--dark">Robots</span><textarea
-                                                    placeholder="User-agent: Googlebot
-Disallow: /nogooglebot/" name="robots" id="robots" type="text" style="height: 201.6px;">{{ attacker.robots }}</textarea>
-                                                <small class="form-text color--primary">Customize the robots.txt file</small>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <button type="submit" id="submit1" class="btn btn--primary type--uppercase">Generate my robots.txt
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>-->
                             </div>
                         </div>
                     </div>
