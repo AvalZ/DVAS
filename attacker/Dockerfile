@@ -10,5 +10,6 @@ RUN mkdir templates
 COPY templates ./templates
 RUN mkdir static
 COPY static ./static
+RUN mkdir json
 
 CMD [ "flask", "run", "--host=0.0.0.0" ]
