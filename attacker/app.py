@@ -20,7 +20,7 @@ class attackerFlask(Flask):
         return(response)
 
 app = attackerFlask(__name__,
-                    #static_url_path='',
+                    static_url_path='/assets',
                     static_folder='static',
                     template_folder='templates')
 
@@ -65,7 +65,6 @@ def admin(path):
         except:
             attacker = { 'path': path }
 
-    # print(attacker)
     return render_template('admin.html', attacker=attacker)
 
 @app.route('/robots.txt')
@@ -96,7 +95,6 @@ def catch_all(path):
     else:
         fname = None
 
-    print(fname)
     try:
         with open(fname, "r") as f:
             attacker = json.loads(f.read())
