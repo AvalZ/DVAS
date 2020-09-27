@@ -15,7 +15,7 @@
         $('#form').submit(function(e){
                   e.preventDefault();
                   $.ajax({
-                    url: '/admin/update',
+                    url: '{{ admin_path }}/update',
                     data: $(this).serialize(),
                     method: 'POST',
                     success: function(data) {
@@ -81,7 +81,7 @@ X-Foo-Bar: Hello World" name="header" id="header" type="text" style="height: 201
                                                 </button>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="path" value="{{ attacker.path }}">
+                                        <!-- <input type="hidden" name="path" value="{{ attacker.path }}"> -->
                                     </form>
                                 </div>
                             </div>
