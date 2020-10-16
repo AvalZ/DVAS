@@ -1,2 +1,3 @@
-# dvss
-Damn Vulnerable Security Scanner
+# DVAS
+
+Damn Vulnerable Application Scanner
