@@ -9,7 +9,7 @@ DVAS also contains a simulation of [CVE-2020-7354](https://cve.mitre.org/cgi-bin
 
 DVAS comes with 2 main components:
 1. **Scanner** acts as a normal security scanner, gathering information from the selected target.
-2. **Attacker** acts as a malicious target that answers with an attack payload. NOTE: you do not need to use this component, you can build your own if  you want.
+2. **Attacker** acts as a malicious target that answers with an attack payload. NOTE: you do not need to use this component. You can build your own, or you can use [RevOK](https://github.com/AvalZ/RevOK).
 
 This repository includes multiple deploy options.
 
