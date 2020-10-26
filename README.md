@@ -2,7 +2,7 @@
 
 This repository contains a collection of web-based (vulnerable) security scanners,
 including (but not limited to) the vulnerabilities from "Never Trust Your Victim: Weaponizing Vulnerabilities in Security Scanners" [3].
-DVAS also contains a simulation of [CVE-2020-7354](https://cve.mitre.org/cgi-bin/cvename.cgi?name=2020-7354) and]
+DVAS also contains a simulation of [CVE-2020-7354](https://cve.mitre.org/cgi-bin/cvename.cgi?name=2020-7354) and
 [CVE-2020-7355](https://cve.mitre.org/cgi-bin/cvename.cgi?name=2020-7355) for Metasploit Pro [2].
 
 ## Getting Started
