@@ -21,10 +21,6 @@ This repository includes multiple deploy options.
 
 Scanner is now available at http://localhost:8080, while Attacker is available at http://localhost:8081.
 
-### Docker
-
-(*TODO*)
-
 ### Manual
 
 Prerequisites:
